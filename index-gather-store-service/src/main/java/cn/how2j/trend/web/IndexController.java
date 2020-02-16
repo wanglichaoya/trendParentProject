@@ -18,8 +18,35 @@ public class IndexController {
     @Autowired
     IndexService indexService;
 
-    @GetMapping("/getCodes")
+    /*@GetMapping("/get")
     public List<Index> get() throws Exception {
         return indexService.fetchIndexexFromThirdPart();
+    }*/
+
+    /**
+     * 刷新
+     **/
+    @GetMapping("/freshCodes")
+    public List<Index> fresh() {
+        return indexService.fresh();
     }
+
+    /**
+     * 获取
+     **/
+    @GetMapping("/getCodes")
+    public List<Index> getCodes() {
+        return indexService.get();
+    }
+
+    /**
+     * 删除
+     **/
+    @GetMapping("/removeCodes")
+    public String remove() {
+        indexService.remove();
+        return "从redis中删除数据成功！";
+    }
+
+
 }
