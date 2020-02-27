@@ -35,7 +35,7 @@ public class IndexService {
     public List<Index> fresh() {
         //获取第三方数据
         indexList = fetchIndexexFromThirdPart();
-        //System.out.println("第三方的数据大小为：" + indexList.size());
+        System.out.println("第三方的数据大小为：" + indexList.size());
         IndexService indexService = SpringContextUtil.getBean(IndexService.class);
         //从redis中删除数据
         indexService.remove();

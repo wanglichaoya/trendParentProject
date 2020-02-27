@@ -10,7 +10,6 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,7 +36,7 @@ public class IndexDataService {
         List<IndexData> indexData = fetchIndexsFromThirdPart(code);
         stringListMap.put(code,indexData);
         System.out.println("code"+code);
-        System.out.println("indexData"+stringListMap.get(code).size());
+        System.out.println("indexData->"+stringListMap.get(code).size());
         IndexDataService indexDataService = SpringContextUtil.getBean(IndexDataService.class);
         indexDataService.remove(code);
         return indexDataService.store(code);
