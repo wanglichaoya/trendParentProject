@@ -1,0 +1,14 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: index-zuul-service
+
+#配置网关
+zuul:
+  routes:
+    api-a:
+      path: /api-codes/**/
+      serviceId: INDEX-CODES-SERVICE
