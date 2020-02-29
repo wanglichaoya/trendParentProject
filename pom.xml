@@ -12,6 +12,7 @@
         <module>index-codes-service</module>
         <module>index-data-service2</module>
         <module>index-zuul-service</module>
+        <module>trend-trading-backtest-service</module>
 
 
     </modules>
