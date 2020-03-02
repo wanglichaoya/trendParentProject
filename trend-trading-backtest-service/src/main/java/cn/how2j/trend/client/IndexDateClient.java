@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * describe: 使用Feign模式从其他微服务中获取数据
  *
+ * @FeignClient(value="INDEX-DATA-SERVICE2"
+ * 下面通过name或者value指定服务名，然后根据服务名调用 getIndexData()  服务。
  * @author 王立朝
  * @date 2020/02/28
  */
