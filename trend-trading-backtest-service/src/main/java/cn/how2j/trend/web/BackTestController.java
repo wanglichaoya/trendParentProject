@@ -1,5 +1,6 @@
 package cn.how2j.trend.web;
 
+import cn.how2j.trend.pojo.AnnualProfit;
 import cn.how2j.trend.pojo.IndexData;
 import cn.how2j.trend.pojo.Profit;
 import cn.how2j.trend.pojo.Trade;
@@ -25,10 +26,14 @@ public class BackTestController {
     @Autowired
     BackTestService backTestService;
 
-    @GetMapping("/simulate/{code}/{startDate}/{endDate}")
+    @GetMapping("/simulate/{code}/{ma}/{buyThreshold}/{sellThreshold}/{serviceCharge}/{startDate}/{endDate}")
     //@CrossOrigin跨域
     @CrossOrigin
     public Map<String, Object> backTest(@PathVariable("code") String code,
+                                        @PathVariable("ma") int ma,
+                                        @PathVariable("buyThreshold") float buyThreshold,
+                                        @PathVariable("sellThreshold") float sellThreshold,
+                                        @PathVariable("serviceCharge") float serviceCharge,
                                         @PathVariable("startDate") String strStartDate,
                                         @PathVariable("endDate") String strEndDate) {
 
@@ -39,12 +44,16 @@ public class BackTestController {
         allIndexDatas = filterByDateRange(allIndexDatas, strStartDate, strEndDate);
 
         //ma:  默认是20天的均线
-        int ma = 20;
+        //int ma = 20;
         //卖出点，跌了5个点就卖了
-        float sellRate = 0.95f;
+        //float sellRate = 0.95f;
+        float sellRate = sellThreshold;
         //超过均线1.05 就买，给了买的信号。
-        float buyRate = 1.05f;
-        float serviceCharge = 0f;
+        //float buyRate = 1.05f;
+        float buyRate = buyThreshold;
+        //serviceCharge:手续费
+        //float serviceCharge = 0f;
+        //float serviceCharge = serviceCharge;
 
         Map<String, ?> simulateResult = backTestService.simulate(ma, sellRate, buyRate, serviceCharge, allIndexDatas);
 
@@ -65,6 +74,9 @@ public class BackTestController {
         int lossCount = (Integer) simulateResult.get("lossCount");
         float avgWinRate = (Float) simulateResult.get("avgWinRate");
         float avgLossRate = (Float) simulateResult.get("avgLossRate");
+
+        //趋势收益部分
+        List<AnnualProfit> annualProfits = (List<AnnualProfit>) simulateResult.get("annualProfits");
 
 
         result.put("indexDatas", allIndexDatas);
@@ -89,6 +101,9 @@ public class BackTestController {
         result.put("winCount", winCount);
         //平均盈利率
         result.put("avgWinRate", avgWinRate);
+
+        //指数投资趋势和趋势投资趋势
+        result.put("annualProfits", annualProfits);
         return result;
 
     }
