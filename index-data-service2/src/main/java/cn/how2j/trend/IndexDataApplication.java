@@ -1,10 +1,12 @@
 package cn.how2j.trend;
 
+import brave.sampler.Sampler;
 import cn.how2j.trend.util.CheckPortAbledUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
 
 /**
  * describe:
@@ -18,8 +20,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 public class IndexDataApplication {
 
 
-    public static void main(String[] args){
-        int port =0;
+    public static void main(String[] args) {
+        int port = 0;
         int defaultPort = 8021;
         int redisPort = 6379;
         int eurekaServerPort = 8761;
@@ -30,13 +32,18 @@ public class IndexDataApplication {
         CheckPortAbledUtil.checkEurekaServerPortOpen(eurekaServerPort);
 
         //初始化启动端口
-        port = CheckPortAbledUtil.initPort(args,port);
-       //5秒内如果不输入端口号，就使用默认端口号
-        port = CheckPortAbledUtil.writePort(defaultPort,port);
+        port = CheckPortAbledUtil.initPort(args, port);
+        //5秒内如果不输入端口号，就使用默认端口号
+        port = CheckPortAbledUtil.writePort(defaultPort, port);
         //检测端口是否被占用
         CheckPortAbledUtil.checkUsableLocalPort(port);
         new SpringApplicationBuilder(IndexDataApplication.class).properties("server.port=" + port).run(args);
 
+    }
+
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
     }
 
 

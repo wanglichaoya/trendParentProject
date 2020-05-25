@@ -29,6 +29,17 @@ public class CheckPortAbledUtil {
         }
     }
 
+
+    /**
+     * 检测配置服务是否打开
+     **/
+    public static void checkConfigServerPortOpen(String msg, int configServerPort) {
+        if (NetUtil.isUsableLocalPort(configServerPort)) {
+            System.err.printf("检查到端口%d 未启用，判断" +msg+"没有启动，本服务无法使用，故退出%n", configServerPort);
+            System.exit(1);
+        }
+    }
+
     /**
      * 检测端口是被占用
      **/

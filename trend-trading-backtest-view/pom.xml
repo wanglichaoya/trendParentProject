@@ -48,6 +48,28 @@
             <artifactId>common-project</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!--新增链路追踪依赖zipkin-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <version>2.0.0.RELEASE</version>
+        </dependency>
+
+        <!--增加config-client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <!--spring-boot-starter-actuator 用于访问路径：/actuator/bus-refresh， 这个地址就用来通知 它去更新 配置服务器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!--spring-cloud-starter-bus-amqp 用于支持 rabbitmq-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

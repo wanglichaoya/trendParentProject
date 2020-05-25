@@ -5,6 +5,9 @@ eureka:
 spring:
   application:
     name: trend-trading-backtest-service
+  #配置链路追踪zipkin
+  zipkin:
+    base-url: http://localhost:9411
 
 #feign.hystrix.enabled: true  用于开启 feign 模式的断路器
 #使用feign模式可以从其他微服务中获取数据
