@@ -31,7 +31,7 @@ public class TrendTradingBackTestViewApplication {
         CheckPortAbledUtil.checkConfigServerPortOpen(msg, configServerPort);
 
         String msg2 = "rabbitMQ 服务器";
-        CheckPortAbledUtil.checkConfigServerPortOpen(msg,rabbitMQPort);
+        CheckPortAbledUtil.checkConfigServerPortOpen(msg2,rabbitMQPort);
 
         port = CheckPortAbledUtil.initPort(args, port);
         //5秒之内如果不输入，则使用默认端口号
